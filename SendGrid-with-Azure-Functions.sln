@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendGridFunctions", "SendGridFunctions\SendGridFunctions.csproj", "{024C9A20-77C4-47A2-B773-F05EE6BD2DFC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Abstractions", "Abstractions\Abstractions.csproj", "{49CA69BD-0CFF-48EA-AC72-AA552DF33B77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{C47DC73F-332F-495F-8CCA-1DE23C28468F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,30 @@ Global
 		{024C9A20-77C4-47A2-B773-F05EE6BD2DFC}.Release|x64.Build.0 = Release|Any CPU
 		{024C9A20-77C4-47A2-B773-F05EE6BD2DFC}.Release|x86.ActiveCfg = Release|Any CPU
 		{024C9A20-77C4-47A2-B773-F05EE6BD2DFC}.Release|x86.Build.0 = Release|Any CPU
+		{49CA69BD-0CFF-48EA-AC72-AA552DF33B77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49CA69BD-0CFF-48EA-AC72-AA552DF33B77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49CA69BD-0CFF-48EA-AC72-AA552DF33B77}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{49CA69BD-0CFF-48EA-AC72-AA552DF33B77}.Debug|x64.Build.0 = Debug|Any CPU
+		{49CA69BD-0CFF-48EA-AC72-AA552DF33B77}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{49CA69BD-0CFF-48EA-AC72-AA552DF33B77}.Debug|x86.Build.0 = Debug|Any CPU
+		{49CA69BD-0CFF-48EA-AC72-AA552DF33B77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49CA69BD-0CFF-48EA-AC72-AA552DF33B77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49CA69BD-0CFF-48EA-AC72-AA552DF33B77}.Release|x64.ActiveCfg = Release|Any CPU
+		{49CA69BD-0CFF-48EA-AC72-AA552DF33B77}.Release|x64.Build.0 = Release|Any CPU
+		{49CA69BD-0CFF-48EA-AC72-AA552DF33B77}.Release|x86.ActiveCfg = Release|Any CPU
+		{49CA69BD-0CFF-48EA-AC72-AA552DF33B77}.Release|x86.Build.0 = Release|Any CPU
+		{C47DC73F-332F-495F-8CCA-1DE23C28468F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C47DC73F-332F-495F-8CCA-1DE23C28468F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C47DC73F-332F-495F-8CCA-1DE23C28468F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C47DC73F-332F-495F-8CCA-1DE23C28468F}.Debug|x64.Build.0 = Debug|Any CPU
+		{C47DC73F-332F-495F-8CCA-1DE23C28468F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C47DC73F-332F-495F-8CCA-1DE23C28468F}.Debug|x86.Build.0 = Debug|Any CPU
+		{C47DC73F-332F-495F-8CCA-1DE23C28468F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C47DC73F-332F-495F-8CCA-1DE23C28468F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C47DC73F-332F-495F-8CCA-1DE23C28468F}.Release|x64.ActiveCfg = Release|Any CPU
+		{C47DC73F-332F-495F-8CCA-1DE23C28468F}.Release|x64.Build.0 = Release|Any CPU
+		{C47DC73F-332F-495F-8CCA-1DE23C28468F}.Release|x86.ActiveCfg = Release|Any CPU
+		{C47DC73F-332F-495F-8CCA-1DE23C28468F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
