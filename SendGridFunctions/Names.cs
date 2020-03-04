@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Abstractions.Messaging;
 
 namespace SendGridFunctions
 {
@@ -47,6 +48,17 @@ namespace SendGridFunctions
         /// the template when sending.
         /// </remarks>
         public const string SendEmailWithTemplateHttp = nameof(SendEmailWithTemplateHttp);
+
+
+        /// <summary>
+        /// The orchestration function that sends an e-mail using a template. The input to the function must be an instance of the <see cref="SendEmailWithTemplateRequest"/>
+        /// </summary>
+        public const string SendEmailWithTemplateOrch = nameof(SendEmailWithTemplateOrch);
+
+        /// <summary>
+        /// The activity function that sends an e-mail using a template. The input to the function must be an instance of the <see cref="SendEmailWithTemplateRequest"/>
+        /// </summary>
+        public const string SendEmailWithTemplate = nameof(SendEmailWithTemplate);
 
     }
 }

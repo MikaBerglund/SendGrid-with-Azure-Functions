@@ -10,9 +10,16 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net;
 using Services;
+using System.Collections.Generic;
+using Abstractions.Messaging;
+using System.Globalization;
+using Microsoft.Azure.WebJobs.Extensions.DurableTask;
 
 namespace SendGridFunctions
 {
+    /// <summary>
+    /// Functions for working with SendGrid.
+    /// </summary>
     public class SendGridFunctions
     {
         public SendGridFunctions(EmailService email)
@@ -22,11 +29,55 @@ namespace SendGridFunctions
 
         private EmailService Email;
 
+        /// <summary>
+        /// See <see cref="Names.SendEmailWithTemplateHttp"/> for details on this function.
+        /// </summary>
         [FunctionName(Names.SendEmailWithTemplateHttp)]
-        public async Task<HttpResponseMessage> SendEmailWithTemplateHttp([HttpTrigger(AuthorizationLevel.Function, "POST")]HttpRequestMessage request)
+        public async Task<HttpResponseMessage> SendEmailWithTemplateHttp([HttpTrigger(AuthorizationLevel.Function, "POST")]HttpRequestMessage request,[DurableClient]IDurableClient client)
         {
+            Dictionary<string, string> data = null;
+            var json = await request.Content.ReadAsStringAsync();
+            if(!string.IsNullOrEmpty(json))
+            {
+                data = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+            }
 
-            return new HttpResponseMessage(HttpStatusCode.NotImplemented);
+            var query = request.RequestUri.ParseQueryString();
+
+            var culture = query.Get("culture");
+            var sendRequest = new SendEmailWithTemplateRequest
+            {
+                Culture = !string.IsNullOrEmpty(culture) ? new CultureInfo(culture) : null,
+                From = query.Get("from"),
+                FromName = query.Get("fromname"),
+                TemplateData = data,
+                TemplateId = query.Get("templateid"),
+                To = query.Get("to"),
+                ToName = query.Get("toname")
+            };
+
+            var instanceId = await client.StartNewAsync(Names.SendEmailWithTemplateOrch, sendRequest);
+            return client.CreateCheckStatusResponse(request, instanceId);
+        }
+
+        /// <summary>
+        /// See <see cref="Names.SendEmailWithTemplateOrch"/> for details on this function.
+        /// </summary>
+        [FunctionName(Names.SendEmailWithTemplateOrch)]
+        public async Task SendEmailWithTemplateOrch([OrchestrationTrigger]IDurableOrchestrationContext context)
+        {
+            var request = context.GetInput<SendEmailWithTemplateRequest>();
+            await context.CallActivityWithDefaultRetryAsync(Names.SendEmailWithTemplate, request);
+        }
+
+        /// <summary>
+        /// See <see cref="Names.SendEmailWithTemplate"/> for details on this function.
+        /// </summary>
+        [FunctionName(Names.SendEmailWithTemplate)]
+        public async Task SendEmailWithTemplate([ActivityTrigger]IDurableActivityContext context)
+        {
+            var request = context.GetInput<SendEmailWithTemplateRequest>();
+            await this.Email.SendEmailWithTemplateAsync(request);
         }
     }
 }

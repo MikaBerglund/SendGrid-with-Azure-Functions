@@ -19,12 +19,20 @@ namespace SendGridFunctions
         {
             var services = builder.Services;
             var serviceProvider = services.BuildServiceProvider();
+
+            //--------------------------------------------------------------------------
+            // Load in the configuration and add selected types as services to leverage
+            // DI for services depending on configuration.
             var config = serviceProvider.GetService<IConfiguration>();
             var rootConfig = config.Get<RootConfigurationSection>();
-
             services.AddSingleton(rootConfig);
             services.AddSingleton(rootConfig.SendGrid);
+            //--------------------------------------------------------------------------
+
+
+            // Add a service implementation for working with SendGrid.
             services.AddSingleton<EmailService>();
+
         }
     }
 }
