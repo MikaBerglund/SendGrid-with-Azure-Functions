@@ -45,12 +45,10 @@ namespace Services
         /// </remarks>
         public async Task SendEmailWithTemplateAsync(SendEmailWithTemplateRequest request)
         {
-            var templateId = this.ResolveTemplateId(request.TemplateId, request.Culture);
-
             var msg = new SendGridMessage
             {
                 Personalizations = new List<Personalization>(),
-                TemplateId = templateId,
+                TemplateId = request.TemplateId,
                 From = new EmailAddress(request.From ?? this.Config?.DefaultSender?.Address, request.FromName ?? this.Config?.DefaultSender?.Name)
             };
 
@@ -73,29 +71,5 @@ namespace Services
             }
         }
 
-
-
-        private string ResolveTemplateId(string defaultTemplateId, CultureInfo culture)
-        {
-            var tpl = this.Config.Templates?.First(x => x.TemplateId == defaultTemplateId);
-            return this.ResolveTemplateId(defaultTemplateId, tpl?.Localized ?? new List<LocalizedEmailTemplateConfigurationSection>(), culture);
-        }
-
-        private string ResolveTemplateId(string defaultTemplateId, ICollection<LocalizedEmailTemplateConfigurationSection> alternatives, CultureInfo culture)
-        {
-            string templateId = null;
-
-            var c = culture;
-
-            while(string.IsNullOrEmpty(templateId) && !string.IsNullOrEmpty(c?.Name))
-            {
-                var tpl = alternatives.FirstOrDefault(x => x.Culture?.ToLower() == c.Name?.ToLower());
-                templateId = tpl?.TemplateId;
-
-                c = c?.Parent;
-            }
-
-            return templateId ?? defaultTemplateId;
-        }
     }
 }

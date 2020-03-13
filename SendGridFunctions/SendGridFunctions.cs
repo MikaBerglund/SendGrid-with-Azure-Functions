@@ -47,7 +47,6 @@ namespace SendGridFunctions
             var culture = query.Get("culture");
             var sendRequest = new SendEmailWithTemplateRequest
             {
-                Culture = !string.IsNullOrEmpty(culture) ? new CultureInfo(culture) : null,
                 From = query.Get("from"),
                 FromName = query.Get("fromname"),
                 TemplateData = data,
