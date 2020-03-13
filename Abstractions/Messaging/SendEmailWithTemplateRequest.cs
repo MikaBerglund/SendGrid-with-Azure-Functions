@@ -41,12 +41,5 @@ namespace Abstractions.Messaging
         /// </summary>
         public string FromName { get; set; }
 
-        /// <summary>
-        /// The culture specifying an alternative version for the template specified in <see cref="TemplateId"/>.
-        /// If not specified,  or an alternative version is not found matching the given culture, the template specified
-        /// in <see cref="TemplateId"/> is used as fallback.
-        /// </summary>
-        public CultureInfo Culture { get; set; }
-
     }
 }

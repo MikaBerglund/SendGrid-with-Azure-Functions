@@ -19,9 +19,5 @@ namespace Abstractions.Configuration
         /// </summary>
         public EmailPartyConfigurationSection DefaultSender { get; set; }
 
-        /// <summary>
-        /// A set of templates recognized by the configuration.
-        /// </summary>
-        public ICollection<EmailTemplateConfigurationSection> Templates { get; set; }
     }
 }
