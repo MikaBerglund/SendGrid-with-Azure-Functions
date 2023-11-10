@@ -29,10 +29,7 @@ namespace SendGridFunctions
 
         private EmailService Email;
 
-        /// <summary>
-        /// See <see cref="Names.SendEmailWithTemplateHttp"/> for details on this function.
-        /// </summary>
-        [FunctionName(Names.SendEmailWithTemplateHttp)]
+        [FunctionName(nameof(SendEmailWithTemplateHttp))]
         public async Task<HttpResponseMessage> SendEmailWithTemplateHttp([HttpTrigger(AuthorizationLevel.Function, "POST")]HttpRequestMessage request,[DurableClient]IDurableClient client)
         {
             Dictionary<string, string> data = null;
@@ -54,25 +51,22 @@ namespace SendGridFunctions
                 ToName = query.Get("toname")
             };
 
-            var instanceId = await client.StartNewAsync(Names.SendEmailWithTemplateOrch, sendRequest);
+            var instanceId = await client.StartNewAsync(nameof(SendEmailWithTemplateOrchestration), sendRequest);
             return client.CreateCheckStatusResponse(request, instanceId);
         }
 
-        /// <summary>
-        /// See <see cref="Names.SendEmailWithTemplateOrch"/> for details on this function.
-        /// </summary>
-        [FunctionName(Names.SendEmailWithTemplateOrch)]
-        public async Task SendEmailWithTemplateOrch([OrchestrationTrigger]IDurableOrchestrationContext context)
+        [FunctionName(nameof(SendEmailWithTemplateOrchestration))]
+        public async Task SendEmailWithTemplateOrchestration([OrchestrationTrigger]IDurableOrchestrationContext context)
         {
             var request = context.GetInput<SendEmailWithTemplateRequest>();
-            await context.CallActivityWithDefaultRetryAsync(Names.SendEmailWithTemplate, request);
+            await context.CallActivityWithDefaultRetryAsync(nameof(SendEmailWithTemplateActivity), request);
         }
 
         /// <summary>
         /// See <see cref="Names.SendEmailWithTemplate"/> for details on this function.
         /// </summary>
-        [FunctionName(Names.SendEmailWithTemplate)]
-        public async Task SendEmailWithTemplate([ActivityTrigger]IDurableActivityContext context)
+        [FunctionName(nameof(SendEmailWithTemplateActivity))]
+        public async Task SendEmailWithTemplateActivity([ActivityTrigger]IDurableActivityContext context)
         {
             var request = context.GetInput<SendEmailWithTemplateRequest>();
             await this.Email.SendEmailWithTemplateAsync(request);
